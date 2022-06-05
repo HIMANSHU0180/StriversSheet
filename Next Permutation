@@ -1,0 +1,30 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Solution 
+{
+	public static ArrayList<Integer> nextPermutation(ArrayList<Integer> p) 
+	{
+        int b=0;
+	    for(int i=p.size()-1;i>0;i--){
+            
+            if(p.get(i)>p.get(i-1)){
+                int ind=i;
+                for(int j=i;j<p.size();j++){
+                    if(p.get(j)>p.get(i-1) && p.get(j)<p.get(ind)){
+                        ind=j;
+                    }
+                }
+                int c=p.get(i-1);
+                p.set(i-1,p.get(ind));
+                p.set(ind,c);
+                Collections.sort(p.subList(i,p.size()));
+                b=1;
+                break;
+            }
+        }
+        if(b==0) Collections.sort(p);
+        return p;
+        
+	}
+}
