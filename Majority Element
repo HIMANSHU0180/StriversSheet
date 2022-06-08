@@ -1,0 +1,25 @@
+mport java.util.* ;
+import java.io.*; 
+public class Solution {
+	public static int findMajority(int[] ar, int n) {
+		int k=0;
+        int val=ar[0];
+        for(int i=0;i<n;i++){
+            if(k==0){
+                val=ar[i];
+                k++;
+            }
+            else{
+                if(ar[i]==val) k++;
+              else  k--;
+            }
+        }
+        
+        k=0;
+        for(int i=0;i<n;i++){
+            if(ar[i]==val) k++;
+        }
+        if(k>n/2) return val;
+        return -1;
+	}
+}
