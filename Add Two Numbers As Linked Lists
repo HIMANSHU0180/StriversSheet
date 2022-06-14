@@ -1,0 +1,85 @@
+import java.util.* ;
+import java.io.*; 
+/****************************************************************
+
+    Following is the class structure of the Node class:
+
+    class LinkedListNode {
+        int data;
+        LinkedListNode next;
+        
+        public LinkedListNode(int data) {
+            this.data = data;
+        }
+    }
+
+*****************************************************************/
+
+
+public class Solution {
+    
+    static LinkedListNode reverse(LinkedListNode head){
+        LinkedListNode curr=head;
+        LinkedListNode prev=null;
+        LinkedListNode ne=null;
+        while(curr!=null ){
+           ne=curr.next;
+           curr.next=prev;
+            prev=curr;
+            curr=ne;
+        }
+        
+        return prev;
+    }
+    static LinkedListNode addTwoNumbers(LinkedListNode head1, LinkedListNode head2) {
+       LinkedListNode h1=head1;
+        LinkedListNode h2=head2;
+        LinkedListNode temp=new LinkedListNode(0);
+        LinkedListNode n=temp;
+        int c=0;
+        while(h1!=null && h2!=null){
+            int j=h1.data+h2.data+c;
+            if(j>9){
+                c=j/10;
+            }
+            else{
+                c=0;
+            }
+                    LinkedListNode p=new LinkedListNode(j%10);
+            temp.next=p;
+            temp=temp.next;
+            h1=h1.next;
+            h2=h2.next;
+          //  System.out.println(c);      
+        }
+        while(h1!=null && c>0){
+              int j=h1.data+c;
+              LinkedListNode p=new LinkedListNode(j%10);
+               c=j/10;
+            temp.next=p;
+            temp=temp.next;
+            h1=h1.next;
+        }
+        if(h1!=null && temp!=null){
+            temp.next=h1;
+        }
+            while(h2!=null && c>0){
+              int j=h2.data+c;
+              LinkedListNode p=new LinkedListNode(j%10);
+               c=c/10;
+                temp.next=p;
+            temp=temp.next;
+            h2=h2.next;
+        }
+        if(h2!=null &&  temp!=null){
+            temp.next=h2;
+        }
+        if(c>0){
+             LinkedListNode p=new LinkedListNode(c);
+            temp.next=p;
+            temp=temp.next;
+        }
+       return n.next;
+        
+    }
+}
