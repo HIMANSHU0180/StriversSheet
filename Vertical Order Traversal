@@ -1,0 +1,77 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    class TreeNode<T> 
+    {
+       public:
+        T data;
+        TreeNode<T> left;
+        TreeNode<T> right;
+
+        TreeNode(T data) 
+        {
+            this.data = data;
+            left = null;
+            right = null;
+        }
+    };
+
+************************************************************/
+
+import java.util.*;
+class pair{
+    ArrayList<Integer> al;
+    pair(){
+        this.al=new ArrayList<>();
+    }
+}
+class Par{
+    TreeNode<Integer> node;
+    int val;
+    
+    Par(int val,TreeNode<Integer> node){
+        this.val=val;
+        this.node=node;
+    }
+}
+
+public class Solution 
+{
+    public static ArrayList<Integer> verticalOrderTraversal(TreeNode<Integer> root) 
+    {
+       TreeMap<Integer,pair> tm=new TreeMap<>();
+        ArrayList<Integer> al=new ArrayList<>();
+        
+        Queue<Par> q=new LinkedList<>();
+        q.add(new Par(0,root));
+        while(q.size()!=0){
+            Par p=q.poll();
+            int num=p.val; 
+            TreeNode<Integer> node=p.node;
+            if(!tm.containsKey(num)){
+                pair n=new pair();
+                n.al.add(node.data);
+                tm.put(num,n);
+            }
+            else{
+                pair n=tm.get(num);
+                n.al.add(node.data);
+                tm.put(num,n);
+                
+            }
+            if(node.left!=null) q.add(new Par(num-1,node.left));
+            if(node.right!=null) q.add(new Par(num+1,node.right));
+        }
+        for(Map.Entry<Integer,pair> m:tm.entrySet()){
+           ArrayList<Integer> a=m.getValue().al;
+            for(int i=0;i<a.size();i++){
+               // System.out.println(a.get(i));
+                al.add(a.get(i));
+            }
+            
+        }
+        return al;
+    }
+    
+}
