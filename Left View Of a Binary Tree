@@ -1,0 +1,57 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    class TreeNode<T> 
+    {
+       public:
+        T data;
+        TreeNode<T> left;
+        TreeNode<T> right;
+
+        TreeNode(T data) 
+        {
+            this.data = data;
+            left = null;
+            right = null;
+        }
+    };
+
+************************************************************/
+
+import java.util.*;
+
+class pair{
+    TreeNode<Integer> t;
+    int val;
+    pair(TreeNode t,int val){
+        this.t=t;
+        this.val=val;
+    }
+}
+public class Solution 
+{
+    static HashSet<Integer> hs;
+    static ArrayList<Integer> al;
+    static void find(TreeNode<Integer> root,int val){
+      if(root==null) return;
+        if(!hs.contains(val)){
+            al.add(root.data);
+            hs.add(val);
+        }
+        find(root.left,val+1);
+        find(root.right,val+1);
+        
+    }
+
+    public static ArrayList<Integer> getLeftView(TreeNode<Integer> root) 
+    {
+        hs=new HashSet<>();
+        al=new ArrayList<>();
+        
+      find(root,0);
+        return al;
+        
+        
+    }
+}
