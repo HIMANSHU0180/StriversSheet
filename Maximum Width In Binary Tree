@@ -1,0 +1,57 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    class TreeNode {
+	int val;
+	TreeNode left;
+	TreeNode right;
+
+	TreeNode(int val) {
+		this.val = val;
+		this.left = null;
+		this.right = null;
+	   }
+	}
+
+
+************************************************************/
+import java.util.*;
+class pair{
+    TreeNode t;
+    int val;
+    pair(TreeNode t,int val){
+        this.t=t;
+        this.val=val;
+      
+    }
+    
+}
+public class Solution {
+	public static int getMaxWidth(TreeNode root) {
+        if(root==null) return 0;
+        TreeMap<Integer,Integer> tm=new TreeMap<>();
+		 Queue<pair> q=new LinkedList<>();
+         q.add(new pair(root,0));
+        while(q.size()!=0){
+            pair p=q.poll();
+            int val=p.val;
+            TreeNode n=p.t;
+            if(!tm.containsKey(val)){
+                tm.put(val,1);
+            }
+            else{
+                int j=tm.get(val);
+                tm.put(val,j+1);
+            }
+            if(n.left!=null) q.add(new pair(n.left,val+1));
+            if(n.right!=null) q.add(new pair(n.right,val+1));
+        }
+        int max=0;
+        for(Map.Entry<Integer,Integer> m:tm.entrySet()){
+            if(max<m.getValue()) max=m.getValue();
+        }
+        return max;
+        
+	}
+}
