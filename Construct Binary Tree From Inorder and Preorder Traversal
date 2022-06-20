@@ -1,0 +1,45 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    class TreeNode<T>
+    {
+       public:
+        T data;
+        TreeNode<T> left;
+        TreeNode<T> right;
+
+        TreeNode(T data)
+        {
+            this.data = data;
+            left = null;
+            right = null;
+        }
+    };
+
+************************************************************/
+
+import java.util.*;
+
+public class Solution 
+{
+    
+    static HashMap<Integer,Integer> hm;
+    public static TreeNode<Integer> construct(ArrayList<Integer> inorder,ArrayList<Integer> preorder,int inS,int inE,int preS, int preE){
+    if(inS>inE || preS >preE) return null;
+    TreeNode<Integer> t=new TreeNode<>(preorder.get(preS));
+    int k=hm.get(preorder.get(preS));
+    int shift=k-inS;
+    t.left=construct(inorder,preorder,inS,k-1,preS+1,preS+shift);
+    t.right=construct(inorder,preorder,k+1,inE,preS+shift+1,preE);
+    return t;
+    
+}
+    public static TreeNode<Integer> buildBinaryTree(ArrayList<Integer>  inorder, ArrayList<Integer>  preorder) 
+    { hm=new HashMap<>();
+        for(int i=0;i<inorder.size();i++){
+        hm.put(inorder.get(i),i);
+    }
+      return construct(inorder,preorder,0,inorder.size()-1,0,preorder.size()-1);
+    }
+}
