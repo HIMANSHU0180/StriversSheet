@@ -1,0 +1,36 @@
+/*****************************************************************
+
+    Following is the representation for the Binary Tree Node:
+
+    class BinaryTreeNode<T> {
+        T data;
+        BinaryTreeNode<T> left;
+        BinaryTreeNode<T> right;
+
+        public BinaryTreeNode(T data) {
+            this.data = data;
+        }
+    }
+
+****************************************************************/
+
+public class Solution {
+      static boolean find(BinaryTreeNode<Integer> root1,BinaryTreeNode<Integer> root2){  
+         if(root1==null && root2==null) return true;
+         if(root1==null || root2==null) return false;
+          if(!root1.data.equals(root2.data)) return false;
+         return  find(root1.left,root2.right) && find(root1.right,root2.left);
+          
+          
+          
+          
+          
+      }
+    public static boolean isSymmetric(BinaryTreeNode<Integer> root) {
+        if(root==null) return true;
+    return find(root.left,root.right);
+        
+        
+        
+    }
+}
