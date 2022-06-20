@@ -1,0 +1,39 @@
+/************************************************************
+  
+   Following is the TreeNode class structure
+   
+   class TreeNode<T> { 
+        T data; 
+        TreeNode<T> left;
+        TreeNode<T> right;
+  
+        TreeNode(T data) { 
+            this.data = data; 
+            left = null; 
+            right = null; 
+        }
+   }
+    
+ ************************************************************/
+import java.util.*;
+public class Solution {
+  
+    
+    public static  TreeNode<Integer> construct(int []inOrder,int []postOrder,int inS,int inE,int poS,int poE,HashMap<Integer,Integer> hm){
+       if(inS>inE || poS>poE) return null;
+        TreeNode<Integer> t=new TreeNode<>(postOrder[poE]);
+        int k=hm.get(postOrder[poE]);
+        int shift=k-inS;
+        t.left=construct(inOrder,postOrder,inS,k-1,poS,poS+shift-1,hm);
+        t.right=construct(inOrder,postOrder,k+1,inE,poS+shift,poE-1,hm);
+        return t;
+        
+    }
+	public static TreeNode<Integer> getTreeFromPostorderAndInorder(int[] postOrder, int[] inOrder) {
+		HashMap<Integer,Integer> hm=new HashMap<>();
+        for(int i=0;i<inOrder.length;i++){
+            hm.put(inOrder[i],i);
+        }
+        return construct(inOrder,postOrder,0,inOrder.length-1,0,postOrder.length-1,hm);
+	}
+}
